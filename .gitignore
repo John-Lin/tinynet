@@ -1,0 +1,6 @@
+.DS_Store
+bin/
+gopath/
+.vagrant
+vendor/*
+!vendor/vendor.json

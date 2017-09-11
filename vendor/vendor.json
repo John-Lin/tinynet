@@ -1,0 +1,127 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "QWdLWDDDi8s+wEcjqOZRQzME/yY=",
+			"path": "github.com/John-Lin/ovsdb",
+			"revision": "96840e877e73271401199c2e752af24b9b75db74",
+			"revisionTime": "2017-09-11T05:43:14Z"
+		},
+		{
+			"checksumSHA1": "9cl7+wv0GvxpQV+HOtV93F9pbmE=",
+			"path": "github.com/Sirupsen/logrus",
+			"revision": "89742aefa4b206dcf400792f3bd35b542998eb3b",
+			"revisionTime": "2017-08-22T13:27:46Z"
+		},
+		{
+			"checksumSHA1": "72zRy5zCQvI87HDwbIfwhfOBXew=",
+			"path": "github.com/cenkalti/hub",
+			"revision": "11382a9960d39b0ecda16fd01c424c11ff765a34",
+			"revisionTime": "2016-05-27T10:32:12Z"
+		},
+		{
+			"checksumSHA1": "xoOkcixbl+i6kkiHvXMNcN0/zJ0=",
+			"path": "github.com/cenkalti/rpc2",
+			"revision": "c51a77e5f664b4a8a69bce4270d14204f94d51f9",
+			"revisionTime": "2017-07-26T07:05:24Z"
+		},
+		{
+			"checksumSHA1": "SV8XkMo9habP+09CWxEKm7ojrOA=",
+			"path": "github.com/cenkalti/rpc2/jsonrpc",
+			"revision": "c51a77e5f664b4a8a69bce4270d14204f94d51f9",
+			"revisionTime": "2017-07-26T07:05:24Z"
+		},
+		{
+			"checksumSHA1": "Sfdjk2zzDd0npAjZdULWjWoKVkQ=",
+			"path": "github.com/containernetworking/cni/pkg/types",
+			"revision": "909fe7d10d98ab99b9990966796316249c83b263",
+			"revisionTime": "2017-08-31T02:32:53Z"
+		},
+		{
+			"checksumSHA1": "lmLYXYR/twmBu+6U678QNF+BQlQ=",
+			"path": "github.com/containernetworking/cni/pkg/types/020",
+			"revision": "909fe7d10d98ab99b9990966796316249c83b263",
+			"revisionTime": "2017-08-31T02:32:53Z"
+		},
+		{
+			"checksumSHA1": "r6qX7lyz4pweijiXjWMcxvm4wQQ=",
+			"path": "github.com/containernetworking/cni/pkg/types/current",
+			"revision": "a2da8f8d7fd8e6dc25f336408a8ac86f050fbd88",
+			"revisionTime": "2017-07-05T15:32:19Z",
+			"version": "=v0.6.0-rc1",
+			"versionExact": "v0.6.0-rc1"
+		},
+		{
+			"checksumSHA1": "BUj+UEIzHmUAfGD4c/srsQJ4TY8=",
+			"path": "github.com/containernetworking/plugins/pkg/ip",
+			"revision": "a714098daf75b8ed7dbbaa054f6ae7c13b9727f3",
+			"revisionTime": "2017-07-12T15:30:00Z",
+			"version": "=v0.6.0-rc1",
+			"versionExact": "v0.6.0-rc1"
+		},
+		{
+			"checksumSHA1": "wmZ5nRpAN/myLfAzVpPR1RxnoFQ=",
+			"path": "github.com/containernetworking/plugins/pkg/ns",
+			"revision": "a714098daf75b8ed7dbbaa054f6ae7c13b9727f3",
+			"revisionTime": "2017-07-12T15:30:00Z",
+			"version": "=v0.6.0-rc1",
+			"versionExact": "v0.6.0-rc1"
+		},
+		{
+			"checksumSHA1": "rUAk+nce6eDIWtYo/QYIoqlTfrY=",
+			"path": "github.com/containernetworking/plugins/pkg/utils/hwaddr",
+			"revision": "b24225fc17807a1b165476cf71bb6ff41474b27e",
+			"revisionTime": "2017-09-07T12:22:03Z"
+		},
+		{
+			"checksumSHA1": "H1rA7yOjCtSwGqnC0ujfGPv3FVQ=",
+			"path": "github.com/contiv/libovsdb",
+			"revision": "bbc744d8ddc88c6a997e600b19736055c24d87d5",
+			"revisionTime": "2016-04-06T17:49:30Z"
+		},
+		{
+			"checksumSHA1": "8R+CXppdizJ1Pt+FpoL79hMQJWA=",
+			"path": "github.com/coreos/go-iptables/iptables",
+			"revision": "b0ff219ccddf28eb1b812c8e23f218c5f9dd23aa",
+			"revisionTime": "2017-09-01T11:49:55Z"
+		},
+		{
+			"checksumSHA1": "DSXZnN+OjzFCR1qoAo49MAfaVgI=",
+			"path": "github.com/vishvananda/netlink",
+			"revision": "933b978eae8c18daa1077a0eb7186b689cd9f82d",
+			"revisionTime": "2017-09-02T20:36:53Z"
+		},
+		{
+			"checksumSHA1": "oNtzRasYc/H9quYOt/bNVP814OU=",
+			"path": "github.com/vishvananda/netlink/nl",
+			"revision": "933b978eae8c18daa1077a0eb7186b689cd9f82d",
+			"revisionTime": "2017-09-02T20:36:53Z"
+		},
+		{
+			"checksumSHA1": "YDN9yoXZ/KBWqILw9PCNtd/SRAI=",
+			"path": "github.com/vishvananda/netns",
+			"revision": "86bef332bfc3b59b7624a600bd53009ce91a9829",
+			"revisionTime": "2017-07-07T00:42:18Z"
+		},
+		{
+			"checksumSHA1": "nqWNlnMmVpt628zzvyo6Yv2CX5Q=",
+			"path": "golang.org/x/crypto/ssh/terminal",
+			"revision": "9ba3862cf6a5452ae579de98f9364dd2e544844c",
+			"revisionTime": "2017-01-27T19:13:05Z"
+		},
+		{
+			"checksumSHA1": "dp+OSc8jJIOd6h1mXoAmD3GGAAs=",
+			"path": "golang.org/x/sys/unix",
+			"revision": "a5054c7c1385fd50d9394475365355a87a7873ec",
+			"revisionTime": "2017-09-05T14:23:55Z"
+		},
+		{
+			"checksumSHA1": "gVfCD++7aVcdKF2spv6XkEM/wYw=",
+			"path": "golang.org/x/sys/windows",
+			"revision": "a5054c7c1385fd50d9394475365355a87a7873ec",
+			"revisionTime": "2017-09-05T14:23:55Z"
+		}
+	],
+	"rootPath": "github.com/John-Lin/tinynet"
+}
