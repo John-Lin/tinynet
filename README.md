@@ -64,3 +64,9 @@ func main() {
 }
 ```
 more complicated example that you might see in a [examples](https://github.com/John-Lin/tinynet/tree/master/examples) folder
+
+## Cleanup command
+
+```
+$ sudo python clean.py
+```
