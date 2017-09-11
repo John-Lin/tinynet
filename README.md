@@ -67,6 +67,8 @@ more complicated example that you might see in a [examples](https://github.com/J
 
 ## Cleanup command
 
+"cleanup" command to remove interfaces, network namespaces.
+
 ```
 $ sudo python clean.py
 ```
