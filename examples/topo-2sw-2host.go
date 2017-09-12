@@ -12,36 +12,35 @@ func main() {
 	// add a switch as a leftSwitch
 	leftSwitch, err := tn.AddSwitch("br0")
 	if err != nil {
-		log.Fatal("failed to add leftSwitch: ", err)
+		log.Fatal("failed to add leftSwitch:", err)
 	}
-	// add a switch as a rightSwitch and set a OpenFlow controller
-	rightSwitch, err := tn.AddSwitch("br1", "192.168.8.100:6633")
+	// add a switch as a Switch1
+	rightSwitch, err := tn.AddSwitch("br1")
 	if err != nil {
-		log.Fatal("failed to add rightSwitch: ", err)
+		log.Fatal("failed to add rightSwitch:", err)
 	}
 
-	// add a host as a leftHost
+	// add a host as a Host1
 	leftHost, err := tn.AddHost("10.0.0.102/24")
 	if err != nil {
-		log.Fatal("failed to add leftHost: ", err)
+		log.Fatal("failed to add leftHost:", err)
 	}
-	// add a host as a rightHost
+	// add a host as a Host2
 	rightHost, err := tn.AddHost("10.0.0.101/24")
 	if err != nil {
-		log.Fatal("failed to rightHost: ", err)
+		log.Fatal("failed to add rightHost:", err)
 	}
 
-	// add Link for leftSwitch - leftHost
-	if err := tn.AddLink(leftSwitch.Name, leftHost.Name); err != nil {
+	// add Link for leftHost - leftSwitch
+	if err := tn.AddLink(leftHost, leftSwitch); err != nil {
 		log.Fatal("failed to add link between leftSwitch and leftHost: ", err)
 	}
-	// add Link for rightSwitch - rightHost
-	if err := tn.AddLink(rightSwitch.Name, rightHost.Name); err != nil {
-		log.Fatal("failed to add link between rightSwitch and rightHost: ", err)
-	}
 	// add Link for leftSwitch - rightSwitch
-	if err := tn.AddLink(leftSwitch.Name, rightSwitch.Name); err != nil {
+	if err := tn.AddLink(leftSwitch, rightSwitch); err != nil {
 		log.Fatal("failed to add link between leftSwitch and rightSwitch: ", err)
 	}
-
+	// add Link for rightSwitch - rightHost
+	if err := tn.AddLink(rightSwitch, rightHost); err != nil {
+		log.Fatal("failed to add link between rightSwitch and rightHost: ", err)
+	}
 }
