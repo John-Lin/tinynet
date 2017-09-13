@@ -15,6 +15,8 @@
 package tinynet
 
 import (
+	"net"
+
 	log "github.com/Sirupsen/logrus"
 	"github.com/containernetworking/plugins/pkg/ip"
 	"github.com/containernetworking/plugins/pkg/ns"
@@ -26,6 +28,8 @@ type Host struct {
 	name     string
 	ifName   string
 	sandbox  string
+	ip       string
+	mac      string
 }
 
 // NewHost for creating a network namespace
@@ -63,7 +67,7 @@ func (h *Host) setupVeth(ifName string, mtu int) (*Host, error) {
 		}
 		// Host interface name
 		h.ifName = containerVeth.Name
-		// Host mac address
+
 		// h.mac = containerVeth.HardwareAddr.String()
 
 		// Host name
@@ -90,6 +94,11 @@ func (h *Host) setIfaceIP(address string) error {
 	}
 	defer netns.Close()
 
+	ipv4Addr, _, err := net.ParseCIDR(address)
+	if err != nil {
+		return err
+	}
+	h.ip = ipv4Addr.String()
 	err = netns.Do(func(hostNS ns.NetNS) error {
 		if err := setIP(h.ifName, address); err != nil {
 			return err
@@ -99,6 +108,12 @@ func (h *Host) setIfaceIP(address string) error {
 		if err != nil {
 			return err
 		}
+		// get Host mac address
+		hostIface, err := net.InterfaceByName(h.ifName)
+		if err != nil {
+			return err
+		}
+		h.mac = hostIface.HardwareAddr.String()
 		return nil
 	})
 	if err != nil {
