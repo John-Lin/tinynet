@@ -20,6 +20,14 @@ import (
 	"github.com/containernetworking/plugins/pkg/ns"
 )
 
+// Host is a host instance
+type Host struct {
+	nodeType string
+	name     string
+	ifName   string
+	sandbox  string
+}
+
 // NewHost for creating a network namespace
 func NewHost(name string) (*Host, error) {
 	h := new(Host)

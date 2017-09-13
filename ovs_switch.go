@@ -23,6 +23,14 @@ import (
 	log "github.com/Sirupsen/logrus"
 )
 
+// OVSSwitch is a bridge instance
+type OVSSwitch struct {
+	nodeType     string
+	bridgeName   string
+	ctrlHostPort string
+	ovsdb        *ovsdb.OvsDriver
+}
+
 // NewOVSSwitch for creating a ovs bridge
 func NewOVSSwitch(bridgeName string) (*OVSSwitch, error) {
 	sw := new(OVSSwitch)
