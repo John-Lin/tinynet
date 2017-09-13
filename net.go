@@ -20,6 +20,7 @@ import (
 	log "github.com/Sirupsen/logrus"
 )
 
+// AddHost will add a host to topology.
 func AddHost(addr string) (*Host, error) {
 	// Create a network namespace
 	h, err := NewHost("h1")
@@ -40,6 +41,7 @@ func AddHost(addr string) (*Host, error) {
 	return h, nil
 }
 
+// AddSwitch will add a switch to topology.
 func AddSwitch(params ...string) (*OVSSwitch, error) {
 	// params[0] for brName
 	// params[1] for controller remote IP and port
@@ -59,6 +61,7 @@ func AddSwitch(params ...string) (*OVSSwitch, error) {
 	return sw, nil
 }
 
+// AddLink will add a link between switch to switch or host to switch.
 func AddLink(n1, n2 interface{}) error {
 	// log.Info(n1.(*OVSSwitch).nodeType)
 	// log.Info(n2.(*Host).nodeType)
@@ -102,56 +105,5 @@ func AddLink(n1, n2 interface{}) error {
 	default:
 		log.Fatalf("Type Error")
 	}
-
-	// if n1.NodeType == "OVSSwitch" && n2.NodeType == "OVSSwitch" {
-	// 	// switch - switch
-	// 	tap0, tap1, err := makeVethPair("tap0", "tap1")
-	// 	if err != nil {
-	// 		log.Fatalf("failed to makeVethPair: %v", err)
-	// 	}
-	// 	err = n1.addPort(tap0.Name)
-	// 	if err != nil {
-	// 		log.Fatalf("failed to addPortswitch - switch: %v", err)
-	// 	}
-	// 	err = n2.addPort(tap1.Name)
-	// 	if err != nil {
-	// 		log.Fatalf("failed to addPort switch - switch: %v", err)
-	// 	}
-	// } else {
-	// 	// switch - host || host - switch
-	// 	err = n1.addPort(n2.name)
-	// 	if err != nil {
-	// 		fmt.Printf("failed to addPort switch - host: %v", err)
-	// 	}
-	// }
 	return nil
 }
-
-// func switch2switch(n1, n2 *OVSSwitch) {
-// 	var err error
-// 	var tap [2]net.Interface
-// 	var n [2]*OVSSwitch
-
-// 	n[0] = n1
-// 	n[1] = n2
-
-// 	tap[0], tap[1], err = makeVethPair("tap0", "tap1")
-// 	if err != nil {
-// 		log.Fatalf("failed to makeVethPair: %v", err)
-// 	}
-// 	for i := 0; i < 1; i++ {
-// 		err = n[i].addPort(tap[i].Name)
-// 		if err != nil {
-// 			log.Fatalf("failed to addPort switch - switch: %v", err)
-// 		}
-// 	}
-// 	// err = n2.addPort(tap1.Name)
-// 	// if err != nil {
-// 	// 	log.Fatalf("failed to addPort switch - switch: %v", err)
-// 	// }
-// 	return nil
-// }
-
-// func switch2host() {
-// 	return n1.addPort(n2.name)
-// }
