@@ -46,9 +46,9 @@ func NewHost(name string) (*Host, error) {
 	return h, nil
 }
 
-func (h *Host) setupVeth(sandbox string, ifName string, mtu int) (*Host, error) {
+func (h *Host) setupVeth(ifName string, mtu int) (*Host, error) {
 	// Get network namespace object
-	netns, err := ns.GetNS(sandbox)
+	netns, err := ns.GetNS(h.sandbox)
 	if err != nil {
 		log.Fatal("failed to open netns: ", err)
 	}
@@ -82,20 +82,20 @@ func (h *Host) setupVeth(sandbox string, ifName string, mtu int) (*Host, error) 
 	return h, nil
 }
 
-func (h *Host) setIfaceIP(sandbox, ifName, address string) error {
+func (h *Host) setIfaceIP(address string) error {
 	// Get network namespace object
-	netns, err := ns.GetNS(sandbox)
+	netns, err := ns.GetNS(h.sandbox)
 	if err != nil {
 		log.Fatal("failed to open netns: ", err)
 	}
 	defer netns.Close()
 
 	err = netns.Do(func(hostNS ns.NetNS) error {
-		if err := setIP(ifName, address); err != nil {
+		if err := setIP(h.ifName, address); err != nil {
 			return err
 		}
 		// ip link set ifName up
-		_, err := ifaceUp(ifName)
+		_, err := ifaceUp(h.ifName)
 		if err != nil {
 			return err
 		}

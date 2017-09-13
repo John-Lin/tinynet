@@ -28,12 +28,12 @@ func AddHost(addr string) (*Host, error) {
 		log.Fatal("failed to NewHost: ", err)
 	}
 	// setup a veth pair
-	_, err = h.setupVeth(h.sandbox, "eth2", 1500)
+	_, err = h.setupVeth("eth2", 1500)
 	if err != nil {
 		log.Fatal("failed to open netns: ", err)
 	}
 	// setup a IP for host
-	h.setIfaceIP(h.sandbox, h.ifName, addr)
+	h.setIfaceIP(addr)
 	if err != nil {
 		log.Fatalf("failed to setIfaceIP for %s: %v", h.name, err)
 		return nil, err
