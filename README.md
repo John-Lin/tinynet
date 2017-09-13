@@ -23,6 +23,10 @@ $ go get -u github.com/John-Lin/tinynet
 
 https://godoc.org/github.com/John-Lin/tinynet
 
+## Features
+- Go API for creating any netwokrs topology
+- "cleanup" command for removing virtual interfaces, network namespace and bridges
+
 ## Example
 ```go
 package main
@@ -33,7 +37,7 @@ import (
 )
 
 // Custom topology example
-// Host1 --- Switch1 --- host2
+// Host1 --- Switch1 --- Host2
 
 func main() {
 	// add a switch as a Switch1
@@ -54,11 +58,11 @@ func main() {
 	}
 
 	// add Link for Switch1 - Host1
-	if err := tn.AddLink(sw1.Name, h1.Name); err != nil {
+	if err := tn.AddLink(sw1, h1); err != nil {
 		log.Fatal("failed to AddLink:", err)
 	}
-	// add Link for Switch1 - Host2
-	if err := tn.AddLink(sw1.Name, h2.Name); err != nil {
+	// add Link for Host2 - Switch1
+	if err := tn.AddLink(h2, sw1); err != nil {
 		log.Fatal("failed to AddLink:", err)
 	}
 }
@@ -67,7 +71,7 @@ more complicated example that you might see in a [examples](https://github.com/J
 
 ## Cleanup command
 
-"cleanup" command to remove interfaces, network namespaces.
+"cleanup" command to remove interfaces, network namespaces and bridges.
 
 ```
 $ sudo python clean.py

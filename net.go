@@ -12,100 +12,98 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package tinynet
+package main
 
 import (
 	"fmt"
-	"strings"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/containernetworking/cni/pkg/types/current"
-	"github.com/containernetworking/plugins/pkg/ns"
 )
 
-func AddHost(addr string) (*current.Interface, error) {
-	MTU := 1500
-	ifName := "eth2"
+// AddHost will add a host to topology.
+func AddHost(addr string) (*Host, error) {
 	// Create a network namespace
-	targetNs, err := ns.NewNS()
-	log.Info("netns mouted into the host: ", targetNs.Path())
-
-	// Get network namespace object
-	netns, err := ns.GetNS(targetNs.Path())
+	h, err := NewHost("h1")
+	if err != nil {
+		log.Fatal("failed to NewHost: ", err)
+	}
+	// setup a veth pair
+	_, err = h.setupVeth(h.sandbox, "eth2", 1500)
 	if err != nil {
 		log.Fatal("failed to open netns: ", err)
 	}
-	defer netns.Close()
-
-	// Create veth pairs, put into network namespace and enable lookback device
-	hostInterface, containerInterface, err := setupVeth(netns, ifName, MTU)
+	// setup a IP for host
+	h.setIfaceIP(h.sandbox, h.ifName, addr)
 	if err != nil {
-		log.Fatal("failed to setupVeth: ", err)
+		log.Fatalf("failed to setIfaceIP for %s: %v", h.name, err)
+		return nil, err
 	}
-
-	// setup network namespace IP
-	err = setupNamespaceIP(netns, containerInterface.Name, addr)
-	if err != nil {
-		log.Fatal("failed to setupContIP: ", err)
-	}
-
-	return hostInterface, nil
+	return h, nil
 }
 
-func AddSwitch(params ...string) (*current.Interface, error) {
+// AddSwitch will add a switch to topology.
+func AddSwitch(params ...string) (*OVSSwitch, error) {
 	// params[0] for brName
-	// params[0] for controller remote IP and port
+	// params[1] for controller remote IP and port
 	// Create a Open vSwitch bridge
-	_, brInterface, err := setupOVSBridge(params[0])
+	sw, err := NewOVSSwitch(params[0])
 	if err != nil {
-		log.Fatal("failed to setupOVSBridge: ", err)
+		log.Fatal("failed to NewOVSSwitch: ", err)
 	}
-
 	if len(params) == 2 {
-		if err := setupCtrlerToOVS(params[0], params[1]); err != nil {
-			log.Fatal("failed to setupCtrlerToOVS: ", err)
+		if err := sw.setCtrl(params[1]); err != nil {
+			log.Warnf("failed to setCtrl for %s: %v", sw.bridgeName, err)
 			return nil, err
 		}
 	} else if len(params) > 2 {
 		return nil, fmt.Errorf("Too many arguments")
 	}
-
-	return brInterface, nil
+	return sw, nil
 }
 
-func AddLink(brName, contName string) error {
-	if !strings.HasPrefix(contName, "veth") && !strings.HasPrefix(brName, "veth") {
-		// switch connect to switch
-		tap0, tap1, err := setupVethPair()
-		if err != nil {
-			return fmt.Errorf("failed to setupVethPair: %v", err)
+// AddLink will add a link between switch to switch or host to switch.
+func AddLink(n1, n2 interface{}) error {
+	// log.Info(n1.(*OVSSwitch).nodeType)
+	// log.Info(n2.(*Host).nodeType)
+	var err error
+	switch n1.(type) {
+	case *OVSSwitch:
+		switch n2.(type) {
+		case *OVSSwitch:
+			tap0, tap1, err := makeVethPair("tap0", "tap1")
+			if err != nil {
+				log.Fatalf("failed to makeVethPair: %v", err)
+			}
+			err = n1.(*OVSSwitch).addPort(tap0.Name)
+			if err != nil {
+				log.Fatalf("failed to addPortswitch - switch: %v", err)
+			}
+			err = n2.(*OVSSwitch).addPort(tap1.Name)
+			if err != nil {
+				log.Fatalf("failed to addPort switch - switch: %v", err)
+			}
+		case *Host:
+			err = n1.(*OVSSwitch).addPort(n2.(*Host).name)
+			if err != nil {
+				fmt.Printf("failed to addPort switch - host: %v", err)
+			}
+		default:
+			log.Fatalf("Type Error")
 		}
-
-		err = addPortToOVS(brName, tap0.Name)
-		if err != nil {
-			return fmt.Errorf("failed to addLink: %v", err)
+	case *Host:
+		switch n2.(type) {
+		case *OVSSwitch:
+			err = n2.(*OVSSwitch).addPort(n1.(*Host).name)
+			if err != nil {
+				fmt.Printf("failed to addPort host - switch : %v", err)
+			}
+		case *Host:
+			log.Fatalf("Type Error: host can not connect to host")
+		default:
+			log.Fatalf("Type Error")
 		}
-
-		err = addPortToOVS(contName, tap1.Name)
-		if err != nil {
-			return fmt.Errorf("failed to addLink: %v", err)
-		}
-
-	} else {
-		// container connect to switch
-		err := addPortToOVS(brName, contName)
-		if err != nil {
-			log.Fatal("failed to addPortToOVS: ", err)
-			return fmt.Errorf("failed to addPortToOVS: %v", err)
-		}
-	}
-	return nil
-}
-
-func AddController(brName, hostport string) error {
-	if err := setupCtrlerToOVS(brName, hostport); err != nil {
-		log.Fatal("failed to setupCtrlerToOVS: ", err)
-		return err
+	default:
+		log.Fatalf("Type Error")
 	}
 	return nil
 }
