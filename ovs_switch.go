@@ -36,7 +36,6 @@ func NewOVSSwitch(bridgeName string) (*OVSSwitch, error) {
 	sw := new(OVSSwitch)
 	sw.nodeType = "OVSSwitch"
 	sw.bridgeName = bridgeName
-	// sw.ctrlHostPort = ctrlHostPort
 
 	sw.ovsdb = ovsdb.NewOvsDriverWithUnix(bridgeName)
 
@@ -91,5 +90,6 @@ func (sw *OVSSwitch) setCtrl(hostport string) error {
 		log.Fatalf("Error adding controller to OVS. Err: %v", err)
 		return err
 	}
+	sw.ctrlHostPort = hostport
 	return nil
 }
