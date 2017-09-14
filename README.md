@@ -25,7 +25,7 @@ https://godoc.org/github.com/John-Lin/tinynet
 
 ## Features
 - Go API for creating any netwokrs topology
-- "cleanup" command for removing virtual interfaces, network namespace and bridges
+- A `cleanup` command for removing virtual interfaces, network namespace and bridges
 
 ## Example
 ```go
@@ -71,7 +71,7 @@ more complicated example that you might see in a [examples](https://github.com/J
 
 ## Cleanup command
 
-"cleanup" command to remove interfaces, network namespaces and bridges.
+`cleanup` command to remove interfaces, network namespaces and bridges.
 
 ```
 $ sudo python clean.py
