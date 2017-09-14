@@ -35,7 +35,7 @@ func AddHost(addr string) (*Host, error) {
 	// setup a IP for host
 	h.setIfaceIP(addr)
 	if err != nil {
-		log.Fatalf("failed to setIfaceIP for %s: %v", h.name, err)
+		log.Fatalf("failed to setIfaceIP for %s: %v", h.Name, err)
 		return nil, err
 	}
 	return h, nil
@@ -52,7 +52,7 @@ func AddSwitch(params ...string) (*OVSSwitch, error) {
 	}
 	if len(params) == 2 {
 		if err := sw.setCtrl(params[1]); err != nil {
-			log.Warnf("failed to setCtrl for %s: %v", sw.bridgeName, err)
+			log.Warnf("failed to setCtrl for %s: %v", sw.BridgeName, err)
 			return nil, err
 		}
 	} else if len(params) > 2 {
@@ -83,7 +83,7 @@ func AddLink(n1, n2 interface{}) error {
 				log.Fatalf("failed to addPort switch - switch: %v", err)
 			}
 		case *Host:
-			err = n1.(*OVSSwitch).addPort(n2.(*Host).name)
+			err = n1.(*OVSSwitch).addPort(n2.(*Host).Name)
 			if err != nil {
 				fmt.Printf("failed to addPort switch - host: %v", err)
 			}
@@ -93,7 +93,7 @@ func AddLink(n1, n2 interface{}) error {
 	case *Host:
 		switch n2.(type) {
 		case *OVSSwitch:
-			err = n2.(*OVSSwitch).addPort(n1.(*Host).name)
+			err = n2.(*OVSSwitch).addPort(n1.(*Host).Name)
 			if err != nil {
 				fmt.Printf("failed to addPort host - switch : %v", err)
 			}

@@ -24,19 +24,19 @@ import (
 
 // Host is a host instance
 type Host struct {
-	nodeType string
-	name     string
-	ifName   string
-	sandbox  string
-	ip       string
-	mac      string
+	NodeType string
+	Name     string
+	IfName   string
+	Sandbox  string
+	IP       string
+	MAC      string
 }
 
 // NewHost for creating a network namespace
 func NewHost(name string) (*Host, error) {
 	h := new(Host)
-	h.nodeType = "Host"
-	h.name = name
+	h.NodeType = "Host"
+	h.Name = name
 
 	// Create a network namespace
 	targetNs, err := ns.NewNS()
@@ -45,14 +45,14 @@ func NewHost(name string) (*Host, error) {
 	}
 	log.Info("netns mouted into the host: ", targetNs.Path())
 
-	h.sandbox = targetNs.Path()
+	h.Sandbox = targetNs.Path()
 
 	return h, nil
 }
 
 func (h *Host) setupVeth(ifName string, mtu int) (*Host, error) {
 	// Get network namespace object
-	netns, err := ns.GetNS(h.sandbox)
+	netns, err := ns.GetNS(h.Sandbox)
 	if err != nil {
 		log.Fatal("failed to open netns: ", err)
 	}
@@ -66,12 +66,12 @@ func (h *Host) setupVeth(ifName string, mtu int) (*Host, error) {
 			return err
 		}
 		// Host interface name
-		h.ifName = containerVeth.Name
+		h.IfName = containerVeth.Name
 
 		// h.mac = containerVeth.HardwareAddr.String()
 
 		// Host name
-		h.name = hostVeth.Name
+		h.Name = hostVeth.Name
 
 		// ip link set lo up
 		_, err = ifaceUp("lo")
@@ -88,7 +88,7 @@ func (h *Host) setupVeth(ifName string, mtu int) (*Host, error) {
 
 func (h *Host) setIfaceIP(address string) error {
 	// Get network namespace object
-	netns, err := ns.GetNS(h.sandbox)
+	netns, err := ns.GetNS(h.Sandbox)
 	if err != nil {
 		log.Fatal("failed to open netns: ", err)
 	}
@@ -98,22 +98,22 @@ func (h *Host) setIfaceIP(address string) error {
 	if err != nil {
 		return err
 	}
-	h.ip = ipv4Addr.String()
+	h.IP = ipv4Addr.String()
 	err = netns.Do(func(hostNS ns.NetNS) error {
-		if err := setIP(h.ifName, address); err != nil {
+		if err := setIP(h.IfName, address); err != nil {
 			return err
 		}
 		// ip link set ifName up
-		_, err := ifaceUp(h.ifName)
+		_, err := ifaceUp(h.IfName)
 		if err != nil {
 			return err
 		}
 		// get Host mac address
-		hostIface, err := net.InterfaceByName(h.ifName)
+		hostIface, err := net.InterfaceByName(h.IfName)
 		if err != nil {
 			return err
 		}
-		h.mac = hostIface.HardwareAddr.String()
+		h.MAC = hostIface.HardwareAddr.String()
 		return nil
 	})
 	if err != nil {
