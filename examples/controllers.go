@@ -21,15 +21,10 @@ func main() {
 	if err != nil {
 		log.Fatal("failed to add controller for leftSwitch:", err)
 	}
-	// add a switch as a Switch1
-	rightSwitch, err := tn.AddSwitch("br1")
+	// add a switch as a Switch1 and add controller2 for rightSwitch
+	rightSwitch, err := tn.AddSwitch("br1", "192.168.77.33:6653")
 	if err != nil {
 		log.Fatal("failed to add rightSwitch:", err)
-	}
-	// add controller2 for rightSwitch
-	rightSwitch.setCtrl("192.168.77.33:6653")
-	if err != nil {
-		log.Fatal("failed to add controller for rightSwitch:", err)
 	}
 
 	// add a host as a Host1
