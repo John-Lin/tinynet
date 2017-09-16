@@ -20,7 +20,7 @@ import (
 	"time"
 
 	"github.com/John-Lin/ovsdb"
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 // OVSSwitch is a bridge instance

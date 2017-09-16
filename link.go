@@ -18,8 +18,8 @@ import (
 	"fmt"
 	"net"
 
-	log "github.com/Sirupsen/logrus"
 	"github.com/containernetworking/plugins/pkg/ip"
+	log "github.com/sirupsen/logrus"
 	"github.com/vishvananda/netlink"
 )
 

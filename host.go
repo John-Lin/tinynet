@@ -15,11 +15,10 @@
 package tinynet
 
 import (
-	"net"
-
-	log "github.com/Sirupsen/logrus"
 	"github.com/containernetworking/plugins/pkg/ip"
 	"github.com/containernetworking/plugins/pkg/ns"
+	log "github.com/sirupsen/logrus"
+	"net"
 )
 
 // Host is a host instance

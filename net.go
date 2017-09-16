@@ -17,7 +17,7 @@ package tinynet
 import (
 	"fmt"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 // AddHost will add a host to topology.
