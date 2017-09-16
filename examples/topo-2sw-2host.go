@@ -21,12 +21,12 @@ func main() {
 	}
 
 	// add a host as a Host1
-	leftHost, err := tn.AddHost("10.0.0.102/24")
+	leftHost, err := tn.AddHost("h1", "10.0.0.102/24")
 	if err != nil {
 		log.Fatal("failed to add leftHost:", err)
 	}
 	// add a host as a Host2
-	rightHost, err := tn.AddHost("10.0.0.101/24")
+	rightHost, err := tn.AddHost("h2", "10.0.0.101/24")
 	if err != nil {
 		log.Fatal("failed to add rightHost:", err)
 	}

@@ -21,9 +21,9 @@ import (
 )
 
 // AddHost will add a host to topology.
-func AddHost(addr string) (*Host, error) {
+func AddHost(name, addr string) (*Host, error) {
 	// Create a network namespace
-	h, err := NewHost("h1")
+	h, err := NewHost(name)
 	if err != nil {
 		log.Fatal("failed to NewHost: ", err)
 	}
