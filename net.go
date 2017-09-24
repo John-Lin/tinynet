@@ -107,3 +107,9 @@ func AddLink(n1, n2 interface{}) error {
 	}
 	return nil
 }
+
+// Get all IP address from a CIDR notation
+// Return an array with all IP address and remove network address and broadcast address
+func GetIPs(cidr string) ([]string, error) {
+	return getAllIPsfromCIDR(cidr)
+}
