@@ -74,7 +74,7 @@ func ifaceFromNetlinkLink(l netlink.Link) net.Interface {
 
 // Create a veth pair
 func makeVethPair(ifName1, ifName2 string) (net.Interface, net.Interface, error) {
-	peerName, err = pseudoRandomName()
+	peerName, err := pseudoRandomName()
 	if err != nil {
 		return net.Interface{}, net.Interface{}, err
 	}
