@@ -6,7 +6,7 @@ import (
 )
 
 // Custom topology example
-// leftHost --- leftSwitch --- rightSwitch --- rightHosts
+// leftHost --- leftSwitch --- rightSwitch --- rightHost
 
 func main() {
 	// add a switch as a leftSwitch
