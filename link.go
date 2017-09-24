@@ -15,10 +15,10 @@
 package tinynet
 
 import (
+	"crypto/rand"
 	"fmt"
 	"net"
 
-	"github.com/containernetworking/plugins/pkg/ip"
 	log "github.com/sirupsen/logrus"
 	"github.com/vishvananda/netlink"
 )
@@ -72,14 +72,14 @@ func ifaceFromNetlinkLink(l netlink.Link) net.Interface {
 	}
 }
 
+// Create a veth pair
 func makeVethPair(ifName1, ifName2 string) (net.Interface, net.Interface, error) {
-	// Create a veth pair
-	peerName, err := ip.RandomVethName()
+	peerName, err = pseudoRandomName()
 	if err != nil {
 		return net.Interface{}, net.Interface{}, err
 	}
-	v0 := ifName1 + peerName[4:]
-	v1 := ifName2 + peerName[4:]
+	v0 := ifName1 + peerName
+	v1 := ifName2 + peerName
 
 	vethLink := &netlink.Veth{
 		LinkAttrs: netlink.LinkAttrs{
@@ -104,4 +104,14 @@ func makeVethPair(ifName1, ifName2 string) (net.Interface, net.Interface, error)
 	}
 	log.Infof("Created a veth pair: %s : %s", v0, v1)
 	return ifaceFromNetlinkLink(veth1), ifaceFromNetlinkLink(veth0), nil
+}
+
+// Generate pseudo random string with length 8, but not Universally unique.
+func pseudoRandomName() (string, error) {
+	b := make([]byte, 4)
+	_, err := rand.Read(b)
+	if err != nil {
+		return "", fmt.Errorf("failed to generate random veth name: %v", err)
+	}
+	return fmt.Sprintf("%x", b), nil
 }
