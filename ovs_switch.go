@@ -38,6 +38,7 @@ func NewOVSSwitch(bridgeName string) (*OVSSwitch, error) {
 	sw.BridgeName = bridgeName
 
 	sw.ovsdb = ovsdb.NewOvsDriverWithUnix(bridgeName)
+	log.Infoln("Adding a switch:", sw.BridgeName)
 
 	// Check if port is already part of the OVS and add it
 	if !sw.ovsdb.IsPortNamePresent(bridgeName) {
@@ -50,7 +51,7 @@ func NewOVSSwitch(bridgeName string) (*OVSSwitch, error) {
 	}
 
 	time.Sleep(300 * time.Millisecond)
-	log.Infof("Waiting for OVS bridge %s setup", bridgeName)
+	// log.Infof("Waiting for OVS bridge %s setup", bridgeName)
 
 	// ip link set ovs up
 	_, err := ifaceUp(bridgeName)
