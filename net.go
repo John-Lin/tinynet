@@ -23,7 +23,6 @@ import (
 // AddHost will add a host to topology.
 func AddHost(name, addr string) (*Host, error) {
 	// Create a network namespace
-	log.Infoln("--- Adding hosts:")
 	h, err := NewHost(name)
 	if err != nil {
 		log.Fatal("failed to NewHost: ", err)
@@ -46,7 +45,6 @@ func AddHost(name, addr string) (*Host, error) {
 func AddSwitch(params ...string) (*OVSSwitch, error) {
 	// params[0] for brName
 	// params[1] for controller remote IP and port
-	log.Infoln("--- Adding switches:")
 	// Create a Open vSwitch bridge
 	sw, err := NewOVSSwitch(params[0])
 	if err != nil {
@@ -67,7 +65,6 @@ func AddSwitch(params ...string) (*OVSSwitch, error) {
 func AddLink(n1, n2 interface{}) error {
 	// log.Info(n1.(*OVSSwitch).nodeType)
 	// log.Info(n2.(*Host).nodeType)
-	log.Infoln("--- Adding links:")
 	var err error
 	switch n1.(type) {
 	case *OVSSwitch:
@@ -85,13 +82,13 @@ func AddLink(n1, n2 interface{}) error {
 			if err != nil {
 				log.Fatalf("failed to addPort switch - switch: %v", err)
 			}
-			log.Infof("(%s, %s)", n1.(*OVSSwitch).BridgeName, n2.(*OVSSwitch).BridgeName)
+			log.Infof("Adding a link: (%s, %s)", n1.(*OVSSwitch).BridgeName, n2.(*OVSSwitch).BridgeName)
 		case *Host:
 			err = n1.(*OVSSwitch).addPort(n2.(*Host).vethName)
 			if err != nil {
 				log.Fatalf("failed to addPort switch - host: %v", err)
 			}
-			log.Infof("(%s, %s)", n1.(*OVSSwitch).BridgeName, n2.(*Host).Name)
+			log.Infof("Adding a link: (%s, %s)", n1.(*OVSSwitch).BridgeName, n2.(*Host).Name)
 		default:
 			log.Fatalf("Type Error")
 		}
@@ -102,7 +99,7 @@ func AddLink(n1, n2 interface{}) error {
 			if err != nil {
 				log.Fatalf("failed to addPort host - switch : %v", err)
 			}
-			log.Infof("(%s, %s)", n1.(*Host).Name, n2.(*OVSSwitch).BridgeName)
+			log.Infof("Adding a link: (%s, %s)", n1.(*Host).Name, n2.(*OVSSwitch).BridgeName)
 		case *Host:
 			log.Fatalf("Type Error: host can not connect to host")
 		default:

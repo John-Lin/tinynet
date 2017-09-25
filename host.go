@@ -16,6 +16,7 @@ package tinynet
 
 import (
 	"net"
+	"path/filepath"
 
 	"github.com/containernetworking/plugins/pkg/ip"
 	"github.com/containernetworking/plugins/pkg/ns"
@@ -45,7 +46,7 @@ func NewHost(name string) (*Host, error) {
 		log.Fatal("failed to open netns: ", err)
 	}
 	// log.Info("netns mouted into the host: ", targetNs.Path())
-	log.Infof("%s : %s\n", h.Name, targetNs.Path())
+	log.Infof("Adding a host: %s : %s", h.Name, filepath.Base(targetNs.Path()))
 
 	h.Sandbox = targetNs.Path()
 
