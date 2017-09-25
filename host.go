@@ -46,7 +46,7 @@ func NewHost(name string) (*Host, error) {
 		log.Fatal("failed to open netns: ", err)
 	}
 	// log.Info("netns mouted into the host: ", targetNs.Path())
-	log.Infof("Adding a host: %s : %s", h.Name, filepath.Base(targetNs.Path()))
+	log.Infof("Adding a host: %s, namespace: %s", h.Name, filepath.Base(targetNs.Path()))
 
 	h.Sandbox = targetNs.Path()
 
