@@ -19,7 +19,6 @@ import (
 	"fmt"
 	"net"
 
-	log "github.com/sirupsen/logrus"
 	"github.com/vishvananda/netlink"
 )
 
@@ -102,7 +101,7 @@ func makeVethPair(ifName1, ifName2 string) (net.Interface, net.Interface, error)
 	if err != nil {
 		return net.Interface{}, net.Interface{}, err
 	}
-	log.Infof("Created a veth pair: %s : %s", v0, v1)
+	// log.Infof("Created a veth pair: %s : %s", v0, v1)
 	return ifaceFromNetlinkLink(veth1), ifaceFromNetlinkLink(veth0), nil
 }
 

@@ -38,6 +38,7 @@ func NewOVSSwitch(bridgeName string) (*OVSSwitch, error) {
 	sw.BridgeName = bridgeName
 
 	sw.ovsdb = ovsdb.NewOvsDriverWithUnix(bridgeName)
+	log.Infoln(sw.BridgeName)
 
 	// Check if port is already part of the OVS and add it
 	if !sw.ovsdb.IsPortNamePresent(bridgeName) {

@@ -15,10 +15,11 @@
 package tinynet
 
 import (
+	"net"
+
 	"github.com/containernetworking/plugins/pkg/ip"
 	"github.com/containernetworking/plugins/pkg/ns"
 	log "github.com/sirupsen/logrus"
-	"net"
 )
 
 // Host is a host instance
@@ -42,7 +43,8 @@ func NewHost(name string) (*Host, error) {
 	if err != nil {
 		log.Fatal("failed to open netns: ", err)
 	}
-	log.Info("netns mouted into the host: ", targetNs.Path())
+	// log.Info("netns mouted into the host: ", targetNs.Path())
+	log.Infof("%s : %s\n", h.Name, targetNs.Path())
 
 	h.Sandbox = targetNs.Path()
 
