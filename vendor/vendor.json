@@ -3,10 +3,10 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "QWdLWDDDi8s+wEcjqOZRQzME/yY=",
+			"checksumSHA1": "OFauKrx1S0h/o/0rgvIOHAtKfv4=",
 			"path": "github.com/John-Lin/ovsdb",
-			"revision": "96840e877e73271401199c2e752af24b9b75db74",
-			"revisionTime": "2017-09-11T05:43:14Z"
+			"revision": "73372c160d4c86efee2e2faf2dd6315301406375",
+			"revisionTime": "2017-09-16T15:35:40Z"
 		},
 		{
 			"checksumSHA1": "72zRy5zCQvI87HDwbIfwhfOBXew=",
@@ -111,7 +111,7 @@
 			"revisionTime": "2017-01-27T19:13:05Z"
 		},
 		{
-			"checksumSHA1": "dp+OSc8jJIOd6h1mXoAmD3GGAAs=",
+			"checksumSHA1": "SRtaMCef+ybCW9QotET1ZRe3hLo=",
 			"path": "golang.org/x/sys/unix",
 			"revision": "a5054c7c1385fd50d9394475365355a87a7873ec",
 			"revisionTime": "2017-09-05T14:23:55Z"
