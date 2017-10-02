@@ -38,16 +38,14 @@ type Host struct {
 func NewHost(name string, docker bool) (*Host, error) {
 	h := new(Host)
 	h.NodeType = "Host"
+	h.Name = name
 
 	if docker {
-		name, sandbox := initDocker("busybox")
-		h.Name = name
-		h.Sandbox = sandbox
+		_, sandboxKey := initDocker("library/busybox")
+		h.Sandbox = sandboxKey
 		log.Info("netns mouted into the host: ", h.Sandbox)
 		return h, nil
 	}
-
-	h.Name = name
 
 	// Create a network namespace
 	targetNs, err := ns.NewNS()
