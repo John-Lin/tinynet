@@ -18,8 +18,6 @@ import (
 	"io"
 	"io/ioutil"
 
-	log "github.com/sirupsen/logrus"
-
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
@@ -33,12 +31,13 @@ func initDocker(imageName string) (string, string) {
 		panic(err)
 	}
 
-	readCloser, err = cli.ImagePull(ctx, "docker.io/library/"+imageName, types.ImagePullOptions{})
+	// docker pull busybox
+	readCloser, err := cli.ImagePull(ctx, imageName, types.ImagePullOptions{})
 	if err != nil {
 		panic(err)
 	} else {
 		// because readCloser need to be handle so that image can be download.
-		// so we send this output to /dev/null
+		// we don't need output so send this to /dev/null
 		io.Copy(ioutil.Discard, readCloser)
 	}
 
@@ -59,8 +58,5 @@ func initDocker(imageName string) (string, string) {
 	if err != nil {
 		panic(err)
 	}
-	log.Info("%s\n", resp.ID)
-	log.Info("%s\n", cInfo.NetworkSettings.SandboxKey)
-	log.Info("%s\n", cInfo.Name)
-	return cInfo.Name, cInfo.NetworkSettings.SandboxKey
+	return resp.ID, cInfo.NetworkSettings.SandboxKey
 }
