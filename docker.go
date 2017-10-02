@@ -15,6 +15,9 @@
 package tinynet
 
 import (
+	"io"
+	"io/ioutil"
+
 	log "github.com/sirupsen/logrus"
 
 	"github.com/docker/docker/api/types"
@@ -30,9 +33,13 @@ func initDocker(imageName string) (string, string) {
 		panic(err)
 	}
 
-	_, err = cli.ImagePull(ctx, "docker.io/library/"+imageName, types.ImagePullOptions{})
+	readCloser, err = cli.ImagePull(ctx, "docker.io/library/"+imageName, types.ImagePullOptions{})
 	if err != nil {
 		panic(err)
+	} else {
+		// because readCloser need to be handle so that image can be download.
+		// so we send this output to /dev/null
+		io.Copy(ioutil.Discard, readCloser)
 	}
 
 	resp, err := cli.ContainerCreate(ctx, &container.Config{
