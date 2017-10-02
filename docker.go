@@ -48,7 +48,7 @@ func initDocker(imageName string) (string, string) {
 	}
 
 	var cInfo types.ContainerJSON
-	cInfo, err := cli.ContainerInspect(ctx, resp.ID)
+	cInfo, err = cli.ContainerInspect(ctx, resp.ID)
 	if err != nil {
 		panic(err)
 	}
