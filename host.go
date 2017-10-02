@@ -35,9 +35,18 @@ type Host struct {
 }
 
 // NewHost for creating a network namespace
-func NewHost(name string) (*Host, error) {
+func NewHost(name string, docker bool) (*Host, error) {
 	h := new(Host)
 	h.NodeType = "Host"
+
+	if docker {
+		name, sandbox := initDocker("busybox")
+		h.Name = name
+		h.Sandbox = sandbox
+		log.Info("netns mouted into the host: ", h.Sandbox)
+		return h, nil
+	}
+
 	h.Name = name
 
 	// Create a network namespace
