@@ -16,6 +16,7 @@ package tinynet
 
 import (
 	"net"
+	"path/filepath"
 
 	"github.com/containernetworking/plugins/pkg/ip"
 	"github.com/containernetworking/plugins/pkg/ns"
@@ -26,6 +27,7 @@ import (
 type Host struct {
 	NodeType string
 	Name     string
+	vethName string
 	IfName   string
 	Sandbox  string
 	IP       string
@@ -52,7 +54,8 @@ func NewHost(name string, docker bool) (*Host, error) {
 	if err != nil {
 		log.Fatal("failed to open netns: ", err)
 	}
-	log.Info("netns mouted into the host: ", targetNs.Path())
+	// log.Info("netns mouted into the host: ", targetNs.Path())
+	log.Infof("Adding a host: %s, namespace: %s", h.Name, filepath.Base(targetNs.Path()))
 
 	h.Sandbox = targetNs.Path()
 
@@ -79,8 +82,8 @@ func (h *Host) setupVeth(ifName string, mtu int) (*Host, error) {
 
 		// h.mac = containerVeth.HardwareAddr.String()
 
-		// Host name
-		h.Name = hostVeth.Name
+		// Host veth name
+		h.vethName = hostVeth.Name
 
 		// ip link set lo up
 		_, err = ifaceUp("lo")

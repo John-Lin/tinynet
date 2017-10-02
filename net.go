@@ -82,21 +82,24 @@ func AddLink(n1, n2 interface{}) error {
 			if err != nil {
 				log.Fatalf("failed to addPort switch - switch: %v", err)
 			}
+			log.Infof("Adding a link: (%s, %s)", n1.(*OVSSwitch).BridgeName, n2.(*OVSSwitch).BridgeName)
 		case *Host:
-			err = n1.(*OVSSwitch).addPort(n2.(*Host).Name)
+			err = n1.(*OVSSwitch).addPort(n2.(*Host).vethName)
 			if err != nil {
-				fmt.Printf("failed to addPort switch - host: %v", err)
+				log.Fatalf("failed to addPort switch - host: %v", err)
 			}
+			log.Infof("Adding a link: (%s, %s)", n1.(*OVSSwitch).BridgeName, n2.(*Host).Name)
 		default:
 			log.Fatalf("Type Error")
 		}
 	case *Host:
 		switch n2.(type) {
 		case *OVSSwitch:
-			err = n2.(*OVSSwitch).addPort(n1.(*Host).Name)
+			err = n2.(*OVSSwitch).addPort(n1.(*Host).vethName)
 			if err != nil {
-				fmt.Printf("failed to addPort host - switch : %v", err)
+				log.Fatalf("failed to addPort host - switch : %v", err)
 			}
+			log.Infof("Adding a link: (%s, %s)", n1.(*Host).Name, n2.(*OVSSwitch).BridgeName)
 		case *Host:
 			log.Fatalf("Type Error: host can not connect to host")
 		default:
