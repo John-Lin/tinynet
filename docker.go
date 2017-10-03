@@ -35,17 +35,16 @@ func ensureDocker(imageRef string) (containerID string, sandboxKey string, err e
 	readCloser, err := cli.ImagePull(ctx, imageRef, types.ImagePullOptions{})
 	if err != nil {
 		return "", "", err
-	} else {
-		// because readCloser need to be handle so that image can be download.
-		// we don't need output so send this to /dev/null
-		io.Copy(ioutil.Discard, readCloser)
 	}
+	// because readCloser need to be handle so that image can be download.
+	// we don't need output so send this to /dev/null
+	io.Copy(ioutil.Discard, readCloser)
 
 	// docker run --net=none -d busybox sleep 3600
 	resp, err := cli.ContainerCreate(ctx, &container.Config{
 		Image:           imageRef,
 		Cmd:             []string{"sleep", "3600"},
-		NetworkDisabled: true,
+		NetworkDisabled: false,
 	}, nil, nil, "")
 	if err != nil {
 		return "", "", err
