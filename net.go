@@ -22,10 +22,19 @@ import (
 
 // AddHost will add a host to topology.
 func AddHost(name string, addr string, docker bool) (*Host, error) {
-	// Create a network namespace
-	h, err := NewHost(name, docker)
-	if err != nil {
-		log.Fatal("failed to NewHost: ", err)
+
+	if docker {
+		// Create a docker container
+		h, err := NewContainer(name, "library/busybox")
+		if err != nil {
+			log.Fatal("failed to NewContainer: ", err)
+		}
+	} else {
+		// Create a network namespace
+		h, err := NewHost(name)
+		if err != nil {
+			log.Fatal("failed to NewHost: ", err)
+		}
 	}
 	// setup a veth pair
 	_, err = h.setupVeth("eth2", 1500)
