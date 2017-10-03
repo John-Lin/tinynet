@@ -44,6 +44,7 @@ func NewHost(name string, docker bool) (*Host, error) {
 	targetNs, err := ns.NewNS()
 	if err != nil {
 		log.Fatal("failed to open netns: ", err)
+		return nil, err
 	}
 	// log.Info("netns mouted into the host: ", targetNs.Path())
 	log.Infof("Adding a host: %s, namespace: %s", h.Name, filepath.Base(targetNs.Path()))
@@ -51,11 +52,16 @@ func NewHost(name string, docker bool) (*Host, error) {
 	return h, nil
 }
 
+// NewContainer for creating a docker container
 func NewContainer(name string, imageRef string) (*Host, error) {
 	h := new(Host)
 	h.NodeType = "Host"
 	h.Name = name
-	_, sandboxKey := ensureDocker(imageRef)
+	_, sandboxKey, err := ensureDocker(imageRef)
+	if err != nil {
+		log.Fatal("failed to start container: ", err)
+		return nil, err
+	}
 	h.Sandbox = sandboxKey
 	log.Info("netns mouted into the host: ", h.Sandbox)
 	return h, nil
