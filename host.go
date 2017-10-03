@@ -35,7 +35,7 @@ type Host struct {
 }
 
 // NewHost for creating a network namespace
-func NewHost(name string, docker bool) (*Host, error) {
+func NewHost(name string) (*Host, error) {
 	h := new(Host)
 	h.NodeType = "Host"
 	h.Name = name
