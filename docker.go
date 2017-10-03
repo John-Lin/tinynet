@@ -43,8 +43,8 @@ func ensureDocker(imageRef string) (containerID string, sandboxKey string, err e
 	// docker run --net=none -d busybox sleep 3600
 	resp, err := cli.ContainerCreate(ctx, &container.Config{
 		Image: imageRef,
-		Cmd:   []string{"while", "true;", "do", "sleep", "3600;", "done;"},
-		// Cmd:   []string{"sleep", "3600"},
+		// Cmd:   []string{"while", "true;", "do", "sleep", "3600;", "done;"},
+		Cmd: []string{"sleep", "86400"},
 	}, &container.HostConfig{
 		NetworkMode: "none",
 	}, nil, "")
