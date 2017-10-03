@@ -21,6 +21,7 @@ import (
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
+	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/context"
 )
 
@@ -36,9 +37,12 @@ func ensureDocker(imageRef string) (containerID string, sandboxKey string, err e
 	if err != nil {
 		return "", "", err
 	}
+	log.Info("Pulling image from ", imageRef)
+
 	// because readCloser need to be handle so that image can be download.
 	// we don't need output so send this to /dev/null
 	io.Copy(ioutil.Discard, readCloser)
+	defer readCloser.Close()
 
 	// docker run --net=none -d busybox sleep 3600
 	resp, err := cli.ContainerCreate(ctx, &container.Config{
