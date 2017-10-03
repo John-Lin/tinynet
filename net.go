@@ -25,13 +25,13 @@ func AddHost(name string, addr string, docker bool) (*Host, error) {
 	var h *Host
 	if docker {
 		// Create a docker container
-		h, err = NewContainer(name, "library/busybox")
+		h, err := NewContainer(name, "library/busybox")
 		if err != nil {
 			log.Fatal("failed to NewContainer: ", err)
 		}
 	} else {
 		// Create a network namespace
-		h, err = NewHost(name)
+		h, err := NewHost(name)
 		if err != nil {
 			log.Fatal("failed to NewHost: ", err)
 		}
