@@ -24,39 +24,42 @@ import (
 	"golang.org/x/net/context"
 )
 
-func initDocker(imageName string) (string, string) {
+func ensureDocker(imageRef string) (containerID string, sandboxKey string, err error) {
 	ctx := context.Background()
 	cli, err := client.NewEnvClient()
 	if err != nil {
-		panic(err)
+		return "", "", err
 	}
 
 	// docker pull busybox
-	readCloser, err := cli.ImagePull(ctx, imageName, types.ImagePullOptions{})
+	readCloser, err := cli.ImagePull(ctx, imageRef, types.ImagePullOptions{})
 	if err != nil {
-		panic(err)
+		return "", "", err
 	} else {
 		// because readCloser need to be handle so that image can be download.
 		// we don't need output so send this to /dev/null
 		io.Copy(ioutil.Discard, readCloser)
 	}
 
+	// docker run --net=none -d busybox sleep 3600
 	resp, err := cli.ContainerCreate(ctx, &container.Config{
-		Image: imageName,
-		Cmd:   []string{"sleep", "3600"},
+		Image:           imageRef,
+		Cmd:             []string{"sleep", "3600"},
+		NetworkDisabled: true,
 	}, nil, nil, "")
 	if err != nil {
-		panic(err)
+		return "", "", err
 	}
 
 	if err := cli.ContainerStart(ctx, resp.ID, types.ContainerStartOptions{}); err != nil {
-		panic(err)
+		return "", "", err
 	}
 
 	var cInfo types.ContainerJSON
+	// docker inspect bb | grep -E 'SandboxKey|Id'
 	cInfo, err = cli.ContainerInspect(ctx, resp.ID)
 	if err != nil {
-		panic(err)
+		return "", "", err
 	}
-	return resp.ID, cInfo.NetworkSettings.SandboxKey
+	return resp.ID, cInfo.NetworkSettings.SandboxKey, err
 }
