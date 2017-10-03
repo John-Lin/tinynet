@@ -40,7 +40,7 @@ func AddHost(name string, addr string, docker bool) (*Host, error) {
 	// setup a veth pair
 	_, err = h.setupVeth("eth2", 1500)
 	if err != nil {
-		log.Fatal("failed to open netns: ", err)
+		log.Fatal("failed to setup veth pair: ", err)
 	}
 	// setup a IP for host
 	h.setIfaceIP(addr)
