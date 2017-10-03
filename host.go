@@ -40,13 +40,6 @@ func NewHost(name string, docker bool) (*Host, error) {
 	h.NodeType = "Host"
 	h.Name = name
 
-	if docker {
-		_, sandboxKey := initDocker("library/busybox")
-		h.Sandbox = sandboxKey
-		log.Info("netns mouted into the host: ", h.Sandbox)
-		return h, nil
-	}
-
 	// Create a network namespace
 	targetNs, err := ns.NewNS()
 	if err != nil {
@@ -54,9 +47,17 @@ func NewHost(name string, docker bool) (*Host, error) {
 	}
 	// log.Info("netns mouted into the host: ", targetNs.Path())
 	log.Infof("Adding a host: %s, namespace: %s", h.Name, filepath.Base(targetNs.Path()))
-
 	h.Sandbox = targetNs.Path()
+	return h, nil
+}
 
+func NewContainer(name string, imageRef string) (*Host, error) {
+	h := new(Host)
+	h.NodeType = "Host"
+	h.Name = name
+	_, sandboxKey := ensureDocker(imageRef)
+	h.Sandbox = sandboxKey
+	log.Info("netns mouted into the host: ", h.Sandbox)
 	return h, nil
 }
 
