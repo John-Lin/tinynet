@@ -20,7 +20,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// AddHost will add a host to topology.
+// AddHost will add a host to topology. set docker to true can enable docker container as a host
 func AddHost(name string, addr string, docker bool) (*Host, error) {
 	var h *Host
 	var err error
