@@ -25,6 +25,7 @@ https://godoc.org/github.com/John-Lin/tinynet
 
 ## Features
 - Go API for creating any netwokrs topology
+- Integrate with docker containers as a host
 - A `cleanup` command for removing virtual interfaces, network namespace and bridges
 
 ## Example
@@ -46,13 +47,13 @@ func main() {
 		log.Fatal("failed to AddSwitch:", err)
 	}
 
-	// add a host as a Host1
-	h1, err := tn.AddHost("h1", "10.0.0.102/24")
+	// add a docker container host as a Host1
+	h1, err := tn.AddHost("h1", "10.0.0.102/24", true)
 	if err != nil {
 		log.Fatal("failed to AddHost:", err)
 	}
-	// add a host as a Host2
-	h2, err := tn.AddHost("h2", "10.0.0.101/24")
+	// add a docker container host as a Host2
+	h2, err := tn.AddHost("h2", "10.0.0.101/24", true)
 	if err != nil {
 		log.Fatal("failed to AddHost:", err)
 	}
