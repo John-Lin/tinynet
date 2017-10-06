@@ -15,19 +15,22 @@
 package tinynet
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"net"
 	"testing"
 )
 
-func TestGetAllIPsfromCIDR(t *testing.T) {
+func checkIPsFromCIDR(cidr string, expected []string) error {
 
-	expected := []string{"140.113.234.121", "140.113.234.122", "140.113.234.123", "140.113.234.124", "140.113.234.125", "140.113.234.126"}
-	addr, _ := getAllIPsfromCIDR("140.113.234.123/29")
+	addr, _ := getAllIPsfromCIDR(cidr)
 
 	for i, _ := range addr {
-		assert.Equal(t, addr[i], expected[i], "Those two address should be same")
+		if addr[i] != expected[i] {
+			return fmt.Errorf("%v and %v should be same", addr[i], expected[i])
+		}
 	}
+	return nil
 }
 
 func TestInc(t *testing.T) {
@@ -37,5 +40,24 @@ func TestInc(t *testing.T) {
 	for i, _ := range expected {
 		assert.Equal(t, ip.String(), expected[i], "Those two address should be same")
 		inc(ip)
+	}
+}
+
+func TestUtils(t *testing.T) {
+
+	data := []struct {
+		desc     string
+		cidr     string
+		expected []string
+	}{
+		{"ValidCIDR_30", "140.113.234.123/29", []string{"140.113.234.121", "140.113.234.122", "140.113.234.123", "140.113.234.124", "140.113.234.125", "140.113.234.126"}},
+	}
+	for _, d := range data {
+		t.Run(d.desc, func(t *testing.T) {
+			if err := checkIPsFromCIDR(d.cidr, d.expected); err != nil {
+
+			}
+		})
+		fmt.Println(d.desc)
 	}
 }
