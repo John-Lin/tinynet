@@ -39,14 +39,3 @@ func TestInc(t *testing.T) {
 		inc(ip)
 	}
 }
-
-/*
-// http://play.golang.org/p/m8TNTtygK0
-func TESTinc(ip net.IP) {
-	for j := len(ip) - 1; j >= 0; j-- {
-		ip[j]++
-		if ip[j] > 0 {
-			break
-		}
-	}
-}*/
