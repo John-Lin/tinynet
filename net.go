@@ -61,8 +61,8 @@ func AddSwitch(params ...string) (*OVSSwitch, error) {
 		log.Fatal("failed to NewOVSSwitch: ", err)
 	}
 	if len(params) == 2 {
-		if err := sw.setCtrl(params[1]); err != nil {
-			log.Warnf("failed to setCtrl for %s: %v", sw.BridgeName, err)
+		if err := sw.SetCtrl(params[1]); err != nil {
+			log.Warnf("failed to SetCtrl for %s: %v", sw.BridgeName, err)
 			return nil, err
 		}
 	} else if len(params) > 2 {

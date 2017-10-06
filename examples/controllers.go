@@ -17,7 +17,7 @@ func main() {
 		log.Fatal("failed to add leftSwitch:", err)
 	}
 	// add controller1 for rightSwitch
-	leftSwitch.setCtrl("192.168.77.22:6653")
+	leftSwitch.SetCtrl("192.168.77.22:6653")
 	if err != nil {
 		log.Fatal("failed to add controller for leftSwitch:", err)
 	}
