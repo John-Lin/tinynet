@@ -15,23 +15,10 @@
 package tinynet
 
 import (
-	"fmt"
 	"github.com/stretchr/testify/assert"
 	"net"
 	"testing"
 )
-
-func checkIPsFromCIDR(cidr string, expected []string) error {
-
-	addr, _ := getAllIPsfromCIDR(cidr)
-
-	for i, _ := range addr {
-		if addr[i] != expected[i] {
-			return fmt.Errorf("%v and %v should be same", addr[i], expected[i])
-		}
-	}
-	return nil
-}
 
 func TestInc(t *testing.T) {
 	ip, _, _ := net.ParseCIDR("140.113.234.123/30")
