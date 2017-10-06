@@ -24,7 +24,7 @@ func main() {
 	// add 8 hosts and link to switch
 	for i := 0; i < 8; i++ {
 		hostName := "h" + strconv.Itoa(i)
-		host[i], err = tn.AddHost(hostName, ips[i]+"/24")
+		host[i], err = tn.AddHost(hostName, ips[i]+"/24", false)
 		if err != nil {
 			log.Fatal("failed to add host:", err)
 		}
