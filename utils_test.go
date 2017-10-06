@@ -50,14 +50,17 @@ func TestUtils(t *testing.T) {
 		cidr     string
 		expected []string
 	}{
-		{"ValidCIDR_30", "140.113.234.123/29", []string{"140.113.234.121", "140.113.234.122", "140.113.234.123", "140.113.234.124", "140.113.234.125", "140.113.234.126"}},
+		{"ValidCIDR_29", "140.113.234.123/29", []string{"140.113.234.121", "140.113.234.122", "140.113.234.123", "140.113.234.124", "140.113.234.125", "140.113.234.126"}},
 	}
 	for _, d := range data {
 		t.Run(d.desc, func(t *testing.T) {
-			if err := checkIPsFromCIDR(d.cidr, d.expected); err != nil {
+			data, err := getAllIPsfromCIDR(d.cidr)
+			assert.NoError(t, err)
+			assert.Equal(t, len(data), len(d.expected))
 
+			for i, _ := range data {
+				assert.Equal(t, data[i], d.expected[i])
 			}
 		})
-		fmt.Println(d.desc)
 	}
 }
