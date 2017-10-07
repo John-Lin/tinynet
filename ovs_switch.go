@@ -46,7 +46,6 @@ func NewOVSSwitch(bridgeName string) (*OVSSwitch, error) {
 		// Create an internal port in OVS
 		err := sw.ovsdb.CreatePort(bridgeName, "internal", 0)
 		if err != nil {
-			log.Fatalf("Error creating the internal port. Err: %v", err)
 			return nil, err
 		}
 	}
