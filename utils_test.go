@@ -20,6 +20,11 @@ import (
 	"testing"
 )
 
+func TestUtils_Invalid(t *testing.T) {
+	_, err := getAllIPsfromCIDR("1.2.3.4.5./32")
+	assert.Error(t, err)
+}
+
 func TestInc(t *testing.T) {
 	ip, _, _ := net.ParseCIDR("140.113.234.123/30")
 	expected := []string{"140.113.234.123", "140.113.234.124", "140.113.234.125"}
@@ -30,7 +35,7 @@ func TestInc(t *testing.T) {
 	}
 }
 
-func TestUtils(t *testing.T) {
+func TestUtils_Success(t *testing.T) {
 
 	data := []struct {
 		desc     string
