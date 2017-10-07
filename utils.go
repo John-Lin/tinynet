@@ -16,8 +16,6 @@ package tinynet
 
 import (
 	"net"
-
-	log "github.com/sirupsen/logrus"
 )
 
 // https://gist.github.com/kotakanbe/d3059af990252ba89a82
@@ -25,7 +23,7 @@ func getAllIPsfromCIDR(cidr string) ([]string, error) {
 	ip, ipnet, err := net.ParseCIDR(cidr)
 	var ips []string
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 	for ip := ip.Mask(ipnet.Mask); ipnet.Contains(ip); inc(ip) {
 		ips = append(ips, ip.String())
