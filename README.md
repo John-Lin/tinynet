@@ -1,5 +1,6 @@
 # tinynet
 [![Build Status](https://api.travis-ci.org/hwchiu/tinynet.svg?branch=add_test_)](https://travis-ci.org/hwchiu/tinynet)
+[![codecov](https://codecov.io/gh/hwchiu/tinynet/branch/master/graph/badge.svg?branch=add_test_)](https://codecov.io/gh/hwchiu/tinynet)
 [![GoDoc](https://godoc.org/github.com/John-Lin/tinynet?status.svg)](https://godoc.org/github.com/John-Lin/tinynet)
 A lightweight instant virtual network for rapid prototyping SDN 
 
