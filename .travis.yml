@@ -10,7 +10,7 @@ notificaitons:
         on_success: changs
 before_install:
     - sudo apt-get install -y git build-essential openvswitch-switch bridge-utils
-    - sudo go get -u github.com/kardianos/govendor
+    - go get -u github.com/kardianos/govendor
 install: 
     - govendor sync
 script:
