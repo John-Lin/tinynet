@@ -100,5 +100,5 @@ func (sw *OVSSwitch) Delete() error {
 		return errors.New(sw.BridgeName + " doesn't exist, we can delete")
 	}
 
-	return sw.ovsdb.Delete()
+	return sw.ovsdb.DeleteBridge(sw.BridgeName)
 }
