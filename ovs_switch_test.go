@@ -16,22 +16,27 @@ package tinynet
 
 import (
 	"github.com/stretchr/testify/assert"
+	"sync"
 	"testing"
 )
 
 var ovsSwitch *OVSSwitch
-
+var l sync.Mutex
 var bridgeName string = "tinynet"
 
 func TestNewOVSSwitch(t *testing.T) {
 	var err error
+	l.Lock()
 	ovsSwitch, err = NewOVSSwitch(bridgeName)
 	assert.NoError(t, err)
+	l.Unlock()
 }
 
 func TestDeleteOVSSwitch(t *testing.T) {
+	l.Lock()
 	err := ovsSwitch.Delete()
 	assert.NoError(t, err)
+	l.Unlock()
 }
 
 func TestNewOVSSwitch_Invalid(t *testing.T) {
@@ -40,6 +45,8 @@ func TestNewOVSSwitch_Invalid(t *testing.T) {
 }
 
 func TestDeleteOVSSwitch_Invalid(t *testing.T) {
+	l.Lock()
 	err := ovsSwitch.Delete()
 	assert.Error(t, err)
+	l.Unlock()
 }
