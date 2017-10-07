@@ -15,6 +15,7 @@
 package tinynet
 
 import (
+	"errors"
 	"net"
 	"strconv"
 	"time"
@@ -93,4 +94,12 @@ func (sw *OVSSwitch) SetCtrl(hostport string) error {
 	}
 	sw.CtrlHostPort = hostport
 	return nil
+}
+
+func (sw *OVSSwitch) Delete() error {
+	if exist := sw.ovsdb.IsBridgePresent(sw.BridgeName); exist != true {
+		return errors.New(sw.BridgeName + " doesn't exist, we can delete")
+	}
+
+	return sw.ovsdb.Delete()
 }
