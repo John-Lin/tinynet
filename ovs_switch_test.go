@@ -27,10 +27,19 @@ func TestNewOVSSwitch(t *testing.T) {
 	var err error
 	ovsSwitch, err = NewOVSSwitch(bridgeName)
 	assert.NoError(t, err)
-
 }
 
 func TestDeleteOVSSwitch(t *testing.T) {
 	err := ovsSwitch.Delete()
 	assert.NoError(t, err)
+}
+
+func TestNewOVSSwitch_Invalid(t *testing.T) {
+	_, err := NewOVSSwitch("")
+	assert.Error(t, err)
+}
+
+func TestDeleteOVSSwitch_Invalid(t *testing.T) {
+	err := ovsSwitch.Delete()
+	assert.Error(t, err)
 }
