@@ -19,11 +19,18 @@ import (
 	"testing"
 )
 
+var ovsSwitch *OVSSwitch
+
+var bridgeName string = "tinynet"
+
 func TestNewOVSSwitch(t *testing.T) {
-	bridgeName := "tinynet"
-	ovsSwitch, err := NewOVSSwitch(bridgeName)
+	var err error
+	ovsSwitch, err = NewOVSSwitch(bridgeName)
 	assert.NoError(t, err)
 
-	exist := ovsSwitch.ovsdb.IsBridgePresent(bridgeName)
-	assert.True(t, exist)
+}
+
+func TestDeleteOVSSwitch(t *testing.T) {
+	err := ovsSwitch.Delete()
+	assert.NoError(t, err)
 }
