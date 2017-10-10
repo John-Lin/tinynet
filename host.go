@@ -27,7 +27,7 @@ import (
 type Host struct {
 	NodeType string
 	Name     string
-	vethName string
+	VethName string
 	IfName   string
 	Sandbox  string
 	IP       string
@@ -88,7 +88,7 @@ func (h *Host) setupVeth(ifName string, mtu int) (*Host, error) {
 		// h.mac = containerVeth.HardwareAddr.String()
 
 		// Host veth name
-		h.vethName = hostVeth.Name
+		h.VethName = hostVeth.Name
 
 		// ip link set lo up
 		_, err = ifaceUp("lo")
