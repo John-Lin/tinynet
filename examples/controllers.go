@@ -17,7 +17,7 @@ func main() {
 		log.Fatal("failed to add leftSwitch:", err)
 	}
 	// add controller1 for rightSwitch
-	leftSwitch.setCtrl("192.168.77.22:6653")
+	leftSwitch.SetCtrl("192.168.77.22:6653")
 	if err != nil {
 		log.Fatal("failed to add controller for leftSwitch:", err)
 	}
@@ -28,12 +28,12 @@ func main() {
 	}
 
 	// add a host as a Host1
-	leftHost, err := tn.AddHost("h1", "10.0.0.102/24")
+	leftHost, err := tn.AddHost("h1", "10.0.0.102/24", false)
 	if err != nil {
 		log.Fatal("failed to add leftHost:", err)
 	}
 	// add a host as a Host2
-	rightHost, err := tn.AddHost("h2", "10.0.0.101/24")
+	rightHost, err := tn.AddHost("h2", "10.0.0.101/24", false)
 	if err != nil {
 		log.Fatal("failed to add rightHost:", err)
 	}

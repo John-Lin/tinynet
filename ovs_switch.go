@@ -74,8 +74,8 @@ func (sw *OVSSwitch) addPort(ifName string) error {
 	return nil
 }
 
-// setCtrl for seting up OpenFlow controller for ovs bridge
-func (sw *OVSSwitch) setCtrl(hostport string) error {
+// SetCtrl for seting up OpenFlow controller for ovs bridge
+func (sw *OVSSwitch) SetCtrl(hostport string) error {
 	host, port, err := net.SplitHostPort(hostport)
 	if err != nil {
 		log.Fatalf("Invalid controller IP and port. Err: %v", err)
