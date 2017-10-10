@@ -5,3 +5,4 @@ gopath/
 vendor/*
 !vendor/vendor.json
 *.log
+coverage.txt

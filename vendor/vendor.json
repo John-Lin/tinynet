@@ -87,6 +87,12 @@
 			"revisionTime": "2017-09-01T11:49:55Z"
 		},
 		{
+			"checksumSHA1": "mrz/kicZiUaHxkyfvC/DyQcr8Do=",
+			"path": "github.com/davecgh/go-spew/spew",
+			"revision": "ecdeabc65495df2dec95d7c4a4c3e021903035e5",
+			"revisionTime": "2017-10-02T20:02:53Z"
+		},
+		{
 			"checksumSHA1": "Gj+xR1VgFKKmFXYOJMnAczC3Znk=",
 			"path": "github.com/docker/distribution/digestset",
 			"revision": "bb49a1685d2773cb43dacc16e100419f310ba347",
@@ -255,10 +261,22 @@
 			"revisionTime": "2017-09-10T13:46:14Z"
 		},
 		{
+			"checksumSHA1": "LuFv4/jlrmFNnDb/5SCSEPAM9vU=",
+			"path": "github.com/pmezard/go-difflib/difflib",
+			"revision": "792786c7400a136282c1664665ae0a8db921c6c2",
+			"revisionTime": "2016-01-10T10:55:54Z"
+		},
+		{
 			"checksumSHA1": "BYvROBsiyAXK4sq6yhDe8RgT4LM=",
 			"path": "github.com/sirupsen/logrus",
 			"revision": "89742aefa4b206dcf400792f3bd35b542998eb3b",
 			"revisionTime": "2017-08-22T13:27:46Z"
+		},
+		{
+			"checksumSHA1": "mGbTYZ8dHVTiPTTJu3ktp+84pPI=",
+			"path": "github.com/stretchr/testify/assert",
+			"revision": "890a5c3458b43e6104ff5da8dfa139d013d77544",
+			"revisionTime": "2017-07-05T02:17:15Z"
 		},
 		{
 			"checksumSHA1": "DSXZnN+OjzFCR1qoAo49MAfaVgI=",

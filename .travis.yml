@@ -1,0 +1,19 @@
+language: go
+sudo: true
+go: 
+     - 1.8.x
+     - 1.9.x
+
+notificaitons:
+    email:
+        recipients: hwchiu@linkernetworks.com
+        on_success: changs
+before_install:
+    - sudo apt-get install -y git build-essential openvswitch-switch bridge-utils
+    - go get -u github.com/kardianos/govendor
+install: 
+    - govendor sync
+script:
+    - sudo -E env PATH=$PATH go test -coverprofile=coverage.txt -covermode=atomic
+after_success:
+    - bash <(curl -s https://codecov.io/bash)

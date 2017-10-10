@@ -1,4 +1,7 @@
 # tinynet
+[![Build Status](https://api.travis-ci.org/hwchiu/tinynet.svg?branch=develop)](https://travis-ci.org/hwchiu/tinynet)
+[![codecov](https://codecov.io/gh/hwchiu/tinynet/branch/develop/graph/badge.svg)](https://codecov.io/gh/hwchiu/tinynet)
+[![GoDoc](https://godoc.org/github.com/John-Lin/tinynet?status.svg)](https://godoc.org/github.com/John-Lin/tinynet)
 A lightweight instant virtual network for rapid prototyping SDN 
 
 Tinynet provides a simple network library with Go and uses for emulating any network to prototype Software Defined Networks.
