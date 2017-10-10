@@ -20,8 +20,77 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+// HostConfig is a host network configuration
+type HostConfig struct {
+	name      string
+	address   string
+	docker    bool
+	ifaceName string
+	imageRef  string
+	mtu       int
+}
+
+// NewHostConfig is a constructor to initial host network configuration.
+func NewHostConfig(name, addr, ifaceName string, mtu int, docker bool, imageRef string) HostConfig {
+	hostConfig := HostConfig{}
+	if name == "" {
+		panic("Host name is required")
+	}
+	if addr == "" {
+		panic("Host address is required")
+	}
+	hostConfig.name = name
+	hostConfig.address = addr
+	hostConfig.docker = docker
+	hostConfig.ifaceName = ifaceName
+	if ifaceName == "" {
+		hostConfig.ifaceName = "eth1"
+	}
+	hostConfig.imageRef = imageRef
+	if imageRef == "" {
+		hostConfig.imageRef = "library/busybox"
+	}
+	hostConfig.mtu = mtu
+	if mtu == 0 {
+		hostConfig.mtu = 1500
+	}
+	return hostConfig
+}
+
+// AddHostWithConf will add a host to topology.
+func AddHostWithConf(hc hostConfig) (*Host, error) {
+	var h *Host
+	var err error
+	if hc.docker {
+		// Create a docker container
+		h, err = NewContainer(hc.name, hc.imageRef)
+		if err != nil {
+			log.Fatal("failed to NewContainer: ", err)
+		}
+	} else {
+		// Create a network namespace
+		h, err = NewHost(hc.name)
+		if err != nil {
+			log.Fatal("failed to NewHost: ", err)
+		}
+	}
+	// setup a veth pair
+	_, err = h.setupVeth(hc.ifaceName, hc.mtu)
+	if err != nil {
+		log.Fatal("failed to setup veth pair: ", err)
+	}
+	// setup a IP for host
+	h.setIfaceIP(hc.address)
+	if err != nil {
+		log.Fatalf("failed to setIfaceIP for %s: %v", h.Name, err)
+		return nil, err
+	}
+	return h, nil
+}
+
 // AddHost will add a host to topology. set docker to true can enable docker container as a host
 func AddHost(name string, addr string, docker bool) (*Host, error) {
+	log.Warnf("Will be deprecated: use AddHostWithConf instead")
 	var h *Host
 	var err error
 	if docker {
