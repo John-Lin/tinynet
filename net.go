@@ -58,7 +58,7 @@ func NewHostConfig(name, addr, ifaceName string, mtu int, docker bool, imageRef 
 }
 
 // AddHostWithConf will add a host to topology.
-func AddHostWithConf(hc hostConfig) (*Host, error) {
+func AddHostWithConf(hc HostConfig) (*Host, error) {
 	var h *Host
 	var err error
 	if hc.docker {
