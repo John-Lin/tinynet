@@ -90,7 +90,7 @@ func AddHostWithConf(hc HostConfig) (*Host, error) {
 
 // AddHost will add a host to topology. set docker to true can enable docker container as a host
 func AddHost(name string, addr string, docker bool) (*Host, error) {
-	log.Warnf("Will be deprecated: use AddHostWithConf instead")
+	log.Warnf("AddHost will be deprecated: use AddHostWithConf instead")
 	var h *Host
 	var err error
 	if docker {
