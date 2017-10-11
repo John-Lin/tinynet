@@ -272,6 +272,7 @@
 			"revision": "4de3618546deba09d8875d719752db32bd4652c0",
 			"revisionTime": "2017-01-16T17:48:20Z"
         },
+        {
 			"checksumSHA1": "mGbTYZ8dHVTiPTTJu3ktp+84pPI=",
 			"path": "github.com/stretchr/testify/assert",
 			"revision": "890a5c3458b43e6104ff5da8dfa139d013d77544",
