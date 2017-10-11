@@ -6,7 +6,9 @@ go:
 
 notificaitons:
     email:
-        recipients: hwchiu@linkernetworks.com
+        recipients: 
+            - hwchiu@linkernetworks.com
+            - cwlin@linkernetworks.com
         on_success: change
 before_install:
     - sudo apt-get install -y git build-essential openvswitch-switch bridge-utils
