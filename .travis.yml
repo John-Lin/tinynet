@@ -7,7 +7,7 @@ go:
 notificaitons:
     email:
         recipients: hwchiu@linkernetworks.com
-        on_success: changes
+        on_success: change
 before_install:
     - sudo apt-get install -y git build-essential openvswitch-switch bridge-utils
     - go get -u github.com/kardianos/govendor
