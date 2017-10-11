@@ -4,7 +4,7 @@ go:
      - 1.8.x
      - 1.9.x
 
-notificaitons:
+notifications:
     email:
         recipients: hwchiu@linkernetworks.com
         on_success: change
