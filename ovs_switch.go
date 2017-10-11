@@ -15,6 +15,7 @@
 package tinynet
 
 import (
+	"errors"
 	"net"
 	"strconv"
 	"time"
@@ -45,7 +46,6 @@ func NewOVSSwitch(bridgeName string) (*OVSSwitch, error) {
 		// Create an internal port in OVS
 		err := sw.ovsdb.CreatePort(bridgeName, "internal", 0)
 		if err != nil {
-			log.Fatalf("Error creating the internal port. Err: %v", err)
 			return nil, err
 		}
 	}
@@ -93,4 +93,12 @@ func (sw *OVSSwitch) SetCtrl(hostport string) error {
 	}
 	sw.CtrlHostPort = hostport
 	return nil
+}
+
+func (sw *OVSSwitch) Delete() error {
+	if exist := sw.ovsdb.IsBridgePresent(sw.BridgeName); exist != true {
+		return errors.New(sw.BridgeName + " doesn't exist, we can delete")
+	}
+
+	return sw.ovsdb.DeleteBridge(sw.BridgeName)
 }

@@ -4,6 +4,7 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/xenial64"
   config.vm.hostname = 'dev'
+  config.vm.network "public_network"
 
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
     set -e -x -u
