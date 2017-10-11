@@ -15,29 +15,30 @@
 package tinynet
 
 import (
-	"net"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
-// https://gist.github.com/kotakanbe/d3059af990252ba89a82
-func getAllIPsfromCIDR(cidr string) ([]string, error) {
-	ip, ipnet, err := net.ParseCIDR(cidr)
-	var ips []string
-	if err != nil {
-		return nil, err
-	}
-	for ip := ip.Mask(ipnet.Mask); ipnet.Contains(ip); inc(ip) {
-		ips = append(ips, ip.String())
-	}
-	// remove network address and broadcast address
-	return ips[1 : len(ips)-1], nil
+var ovsSwitch *OVSSwitch
+var bridgeName string = "tinynet"
+
+func TestNewOVSSwitch(t *testing.T) {
+	var err error
+	ovsSwitch, err = NewOVSSwitch(bridgeName)
+	assert.NoError(t, err)
 }
 
-// http://play.golang.org/p/m8TNTtygK0
-func inc(ip net.IP) {
-	for j := len(ip) - 1; j >= 0; j-- {
-		ip[j]++
-		if ip[j] > 0 {
-			break
-		}
-	}
+func TestDeleteOVSSwitch(t *testing.T) {
+	err := ovsSwitch.Delete()
+	assert.NoError(t, err)
+}
+
+func TestNewOVSSwitch_Invalid(t *testing.T) {
+	_, err := NewOVSSwitch("")
+	assert.Error(t, err)
+}
+
+func TestDeleteOVSSwitch_Invalid(t *testing.T) {
+	err := ovsSwitch.Delete()
+	assert.Error(t, err)
 }

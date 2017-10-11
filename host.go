@@ -27,7 +27,7 @@ import (
 type Host struct {
 	NodeType string
 	Name     string
-	vethName string
+	VethName string
 	IfName   string
 	Sandbox  string
 	IP       string
@@ -38,18 +38,33 @@ type Host struct {
 func NewHost(name string) (*Host, error) {
 	h := new(Host)
 	h.NodeType = "Host"
+
 	h.Name = name
 
 	// Create a network namespace
 	targetNs, err := ns.NewNS()
 	if err != nil {
 		log.Fatal("failed to open netns: ", err)
+		return nil, err
 	}
 	// log.Info("netns mouted into the host: ", targetNs.Path())
 	log.Infof("Adding a host: %s, namespace: %s", h.Name, filepath.Base(targetNs.Path()))
-
 	h.Sandbox = targetNs.Path()
+	return h, nil
+}
 
+// NewContainer for creating a docker container
+func NewContainer(name string, imageRef string) (*Host, error) {
+	h := new(Host)
+	h.NodeType = "Host"
+	h.Name = name
+	_, sandboxKey, err := ensureDocker(imageRef)
+	if err != nil {
+		log.Fatal("failed to start container: ", err)
+		return nil, err
+	}
+	h.Sandbox = sandboxKey
+	log.Info("netns mouted into the host: ", h.Sandbox)
 	return h, nil
 }
 
@@ -74,7 +89,7 @@ func (h *Host) setupVeth(ifName string, mtu int) (*Host, error) {
 		// h.mac = containerVeth.HardwareAddr.String()
 
 		// Host veth name
-		h.vethName = hostVeth.Name
+		h.VethName = hostVeth.Name
 
 		// ip link set lo up
 		_, err = ifaceUp("lo")

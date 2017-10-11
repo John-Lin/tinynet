@@ -12,8 +12,8 @@ Vagrant.configure("2") do |config|
     sudo apt-get install -y vim git build-essential openvswitch-switch bridge-utils
 
     # Install Golang
-    wget --quiet https://storage.googleapis.com/golang/go1.9.linux-amd64.tar.gz
-    sudo tar -zxf go1.9.linux-amd64.tar.gz -C /usr/local/
+    wget --quiet https://storage.googleapis.com/golang/go1.9.1.linux-amd64.tar.gz
+    sudo tar -zxf go1.9.1.linux-amd64.tar.gz -C /usr/local/
 
     echo 'export GOROOT=/usr/local/go' >> /home/ubuntu/.bashrc
     echo 'export GOPATH=$HOME/go' >> /home/ubuntu/.bashrc
@@ -22,7 +22,13 @@ Vagrant.configure("2") do |config|
 
     mkdir -p /home/ubuntu/go/src
 
-    rm -rf /home/ubuntu/go1.9.linux-amd64.tar.gz
+    rm -rf /home/ubuntu/go1.9.1.linux-amd64.tar.gz
+
+    # Install Docker
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    sudo apt-get update
+    sudo apt-get install -y docker-ce
   SHELL
 
   config.vm.provider :virtualbox do |v|
