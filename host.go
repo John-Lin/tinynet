@@ -20,6 +20,7 @@ import (
 
 	"github.com/containernetworking/plugins/pkg/ip"
 	"github.com/containernetworking/plugins/pkg/ns"
+	"github.com/containernetworking/plugins/pkg/testutils"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -42,7 +43,7 @@ func NewHost(name string) (*Host, error) {
 	h.Name = name
 
 	// Create a network namespace
-	targetNs, err := ns.NewNS()
+	targetNs, err := testutils.NewNS()
 	if err != nil {
 		log.Fatal("failed to open netns: ", err)
 		return nil, err

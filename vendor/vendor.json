@@ -33,16 +33,16 @@
 			"revisionTime": "2017-07-26T07:05:24Z"
 		},
 		{
-			"checksumSHA1": "Sfdjk2zzDd0npAjZdULWjWoKVkQ=",
+			"checksumSHA1": "kyeaxrxhMl3XETXxYfjP5dUeMYY=",
 			"path": "github.com/containernetworking/cni/pkg/types",
-			"revision": "909fe7d10d98ab99b9990966796316249c83b263",
-			"revisionTime": "2017-08-31T02:32:53Z"
+			"revision": "a700ea864b5f1852d179ce83e8bc169f0b4a0ef4",
+			"revisionTime": "2018-03-07T16:29:29Z"
 		},
 		{
 			"checksumSHA1": "lmLYXYR/twmBu+6U678QNF+BQlQ=",
 			"path": "github.com/containernetworking/cni/pkg/types/020",
-			"revision": "909fe7d10d98ab99b9990966796316249c83b263",
-			"revisionTime": "2017-08-31T02:32:53Z"
+			"revision": "a700ea864b5f1852d179ce83e8bc169f0b4a0ef4",
+			"revisionTime": "2018-03-07T16:29:29Z"
 		},
 		{
 			"checksumSHA1": "r6qX7lyz4pweijiXjWMcxvm4wQQ=",
@@ -51,6 +51,12 @@
 			"revisionTime": "2017-07-05T15:32:19Z",
 			"version": "=v0.6.0-rc1",
 			"versionExact": "v0.6.0-rc1"
+		},
+		{
+			"checksumSHA1": "Y9KLxL9fFDnFHaDGOUfDkcbyV0U=",
+			"path": "github.com/containernetworking/cni/pkg/version",
+			"revision": "a700ea864b5f1852d179ce83e8bc169f0b4a0ef4",
+			"revisionTime": "2018-03-07T16:29:29Z"
 		},
 		{
 			"checksumSHA1": "BUj+UEIzHmUAfGD4c/srsQJ4TY8=",
@@ -67,6 +73,12 @@
 			"revisionTime": "2017-07-12T15:30:00Z",
 			"version": "=v0.6.0-rc1",
 			"versionExact": "v0.6.0-rc1"
+		},
+		{
+			"checksumSHA1": "0Tlxd3hz9+whOHUH+cPrdBV/3y8=",
+			"path": "github.com/containernetworking/plugins/pkg/testutils",
+			"revision": "1df359a21054587045c284a088a49d622e4505d7",
+			"revisionTime": "2018-04-25T15:41:32Z"
 		},
 		{
 			"checksumSHA1": "rUAk+nce6eDIWtYo/QYIoqlTfrY=",
@@ -271,8 +283,8 @@
 			"path": "github.com/socketplane/libovsdb",
 			"revision": "4de3618546deba09d8875d719752db32bd4652c0",
 			"revisionTime": "2017-01-16T17:48:20Z"
-        },
-        {
+		},
+		{
 			"checksumSHA1": "mGbTYZ8dHVTiPTTJu3ktp+84pPI=",
 			"path": "github.com/stretchr/testify/assert",
 			"revision": "890a5c3458b43e6104ff5da8dfa139d013d77544",
@@ -321,10 +333,10 @@
 			"revisionTime": "2017-07-19T03:24:12Z"
 		},
 		{
-			"checksumSHA1": "uggjqMBFNJd11oNco2kbkAT641w=",
+			"checksumSHA1": "jrksV/s1xy858I+FMS3kh0FwI+c=",
 			"path": "golang.org/x/sys/unix",
-			"revision": "314a259e304ff91bd6985da2a7149bbf91237993",
-			"revisionTime": "2017-07-19T03:44:26Z"
+			"revision": "7db1c3b1a98089d0071c84f646ff5c96aad43682",
+			"revisionTime": "2018-05-07T10:00:10Z"
 		},
 		{
 			"checksumSHA1": "pBPFzDGt3AVSRffB7ffiUnruFUk=",
