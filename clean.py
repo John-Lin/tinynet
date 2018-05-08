@@ -76,9 +76,9 @@ def main():
                             for tap in taps[ i : i + n ] )
         sh( '( %s ) 2> /dev/null' % cmd )
 
-    print( "*** Removing all network namespaces of the pattern cni-X-X-X-X-X\n" )
+    print( "*** Removing all network namespaces of the pattern cnitest-X-X-X-X-X\n" )
     nses = sh( "ip netns | "
-               "egrep -o '(cni-+[[:alnum:]]+-[[:alnum:]]+-[[:alnum:]]+-[[:alnum:]]+-[[:alnum:]]+)'"
+               "egrep -o '(cnitest-+[[:alnum:]]+-[[:alnum:]]+-[[:alnum:]]+-[[:alnum:]]+-[[:alnum:]]+)'"
                ).splitlines()
     # Delete blocks of links
     n = 1000  # chunk size
