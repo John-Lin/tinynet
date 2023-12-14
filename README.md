@@ -28,7 +28,7 @@ $ go get -u github.com/John-Lin/tinynet
 https://godoc.org/github.com/John-Lin/tinynet
 
 ## Features
-- Go API for creating any netwokrs topology
+- Go API for creating any networks topology
 - Integrate with docker containers as a host
 - A `cleanup` command for removing virtual interfaces, network namespace and bridges
 
